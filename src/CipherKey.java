@@ -31,7 +31,7 @@ public class CipherKey {
 					if (keyFiltered.charAt(i) == keyFiltered.charAt(j)) {
 					
 						keyFiltered.deleteCharAt(j);
-						// System.out.println(keyFiltered);
+						
 					}
 
 				}

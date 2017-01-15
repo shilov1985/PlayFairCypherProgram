@@ -7,13 +7,18 @@ public class RunProgram {
 	static char[][] playfairMatrix;
 	static StringBuilder convertedKey;
 
+	//
 	public static void main(String[] args) {
 
 		playfairMatrix = new char[5][5];
 		Scanner scan = new Scanner(System.in);
-		System.out.println("PlayFair encrypt program by Miroslav Shilov.\n");
 		System.out
-				.println("Please input a text wich you want to encrypt and press Enter...");
+				.println("PlayFair cypher encrypt program by Miroslav Shilov.");
+		System.out
+				.println("https://github.com/shilov1985/PlayfairCypherProgram\n");
+
+		System.out
+				.println("Please input a text which you want to encrypt and press Enter...");
 
 		String sentenseForCoding = null;
 
@@ -25,10 +30,18 @@ public class RunProgram {
 			}
 		} while (sentenseForCoding.length() == 0);
 
+		// Here implement "SentenseForCoding" method to fix some text which
+		// this program encrypt.
+		String result = SentenseForCoding.convertSentense(sentenseForCoding);
+
+		System.out
+				.println("Here is formatted variant of the text which you want to encrypt:"
+						+ result + "\n");
+
 		System.out
 				.println("Please input a key for encrypting of the text and press Enter...");
 		System.out
-				.println("Note-if you not input key for encrypting,by default\nwill be used"
+				.println("Note-if you not input key for encrypting,by default\nthe matrix will be filled with"
 						+ " the English alpfabet,without 'J'.");
 
 		String key = scan.nextLine().replaceAll("[^a-zA-Z]+", "");
@@ -40,9 +53,16 @@ public class RunProgram {
 		keyArraySymbols = key.toUpperCase().replaceAll("\\s", "").trim()
 				.toCharArray();
 
-		// Here we implement "fixKeyForCoding" method to fix the cipher key.
+		// Here implement "fixKeyForCoding" method to fix the cipher key.
 		convertedKey = CipherKey.fixKeyForCoding(keyArraySymbols);
+		System.out
+				.println("Here is the fixed variant of the key for encrypting:"
+						+ convertedKey + "\n");
 
+		if (convertedKey.length() == 0) {
+			System.out.println("You not have entered key.\n");
+
+		}
 		// Here we implement "fixKeyForCoding" method to get
 		// the rest letters for "playfairMatrix".
 		StringBuilder restElement = RestLettersForMatrix
@@ -72,16 +92,14 @@ public class RunProgram {
 		}
 		// print the "playfairMatrix" in console
 
-		// for (int i = 0; i < playfairMatrix.length; i++) {
-		// for (int j = 0; j < playfairMatrix.length; j++) {
-		// System.out.print(playfairMatrix[i][j]);
+		for (int i = 0; i < playfairMatrix.length; i++) {
+			for (int j = 0; j < playfairMatrix.length; j++) {
+				System.out.print(playfairMatrix[i][j]);
 
-		// }
-		// System.out.println();
-		// }
-
-		String result = SentenseForCoding.convertSentense(sentenseForCoding);
-		// System.out.println("fixed text=" + result);
+			}
+			System.out.println();
+		}
+		System.out.println();
 
 		// Here breaks "formattedString" into two-letter chunks
 		// in two dimensional array to be comfortable use diagrams
@@ -97,7 +115,7 @@ public class RunProgram {
 
 		char tempA;
 		char tempB;
-		StringBuilder codeSentence = new StringBuilder();
+		StringBuilder encryptedSentence = new StringBuilder();
 
 		/**
 		 * The code below is the main logic in this program. Here we use the
@@ -148,16 +166,12 @@ public class RunProgram {
 									// letter from the chunk,shifted with one
 									// position
 									// on right.
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[matrixRows][matrixCols + 1]);
 									// Here takes the first letter of the row.
 									// This is the encrypted letter.
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[matrixRows][0]);
-
-									// System.out.println(playfairMatrix[x][j +
-									// 1]);
-									// System.out.println(playfairMatrix[x][0]);
 
 									/**********************************************
 									 * Second story:if the first letter from
@@ -168,7 +182,7 @@ public class RunProgram {
 								} else if (matrixCols == playfairMatrix[0].length - 1) {
 									// Here takes the first letter of the row.
 									// This is the encrypted letter.
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[matrixRows][0]);
 									// Here takes the encrypted letter by the
 									// position of
@@ -176,12 +190,8 @@ public class RunProgram {
 									// letter from the chunk,shifted with one
 									// position
 									// on right.
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[matrixRows][tempBRows + 1]);
-
-									// System.out.println(playfairMatrix[x][0]);
-									// System.out.println(playfairMatrix[x][z +
-									// 1]);
 
 									/**********************************************
 									 * Third story:when have no letters from the
@@ -196,15 +206,11 @@ public class RunProgram {
 									// the letters shifted with
 									// one position on right.These are the
 									// encrypted letters.
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[matrixRows][matrixCols + 1]);
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[matrixRows][tempBRows + 1]);
 
-									// System.out.println(playfairMatrix[x][j +
-									// 1]);
-									// System.out.println(playfairMatrix[x][z +
-									// 1]);
 								}
 							}
 						}
@@ -217,28 +223,22 @@ public class RunProgram {
 							if (tempB == playfairMatrix[tempBRows][matrixCols]) {
 
 								if (tempB == playfairMatrix.length - 1) {
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[matrixRows + 1][matrixCols]);
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[0][matrixCols]);
-									// System.out.println(playfairMatrix[x+1][j]);
-									// System.out.println(playfairMatrix[0][j]);
 
 								} else if (matrixRows == playfairMatrix[0].length - 1) {
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[0][matrixCols]);
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[tempBRows + 1][matrixCols]);
-									// System.out.println(playfairMatrix[0][j]);
-									// System.out.println(playfairMatrix[k+1][j]);
 
 								} else {
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[matrixRows + 1][matrixCols]);
-									codeSentence
+									encryptedSentence
 											.append(playfairMatrix[tempBRows + 1][matrixCols]);
-									// System.out.println(playfairMatrix[x+1][j]);
-									// System.out.println(playfairMatrix[k+1][j]);
 
 								}
 							}
@@ -248,16 +248,16 @@ public class RunProgram {
 							for (int squareCols = 0; squareCols < playfairMatrix[0].length; squareCols++) {
 
 								if (tempB == playfairMatrix[squareRows][squareCols]) {
-									// Here check if the letters from
+									// Here check,if the letters from
 									// "sentenceArr" are
 									// on different rows and columns,and start
 									// logic
-									// for tacking the encrypted letters.
+									// for encrypting of needed letters.
 									if ((matrixRows != squareRows)
 											&& (squareCols != matrixCols)) {
-										codeSentence
+										encryptedSentence
 												.append(playfairMatrix[matrixRows][squareCols]);
-										codeSentence
+										encryptedSentence
 												.append(playfairMatrix[squareRows][matrixCols]);
 									}
 								}
@@ -274,7 +274,8 @@ public class RunProgram {
 
 		}
 		System.out.println("Here is your encrypted text.");
-		System.out.println(codeSentence);
+		System.out.println(encryptedSentence);
+		System.out
+				.println("You can check the encrypted text:http://www.geocachingtoolbox.com/index.php?page=playfairCipher");
 	}
-
 }

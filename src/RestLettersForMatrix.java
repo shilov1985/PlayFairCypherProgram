@@ -29,7 +29,7 @@ public class RestLettersForMatrix {
 				}
 
 			}
-			// System.out.println(flag);
+		
 			// If the length of the "flag" is equal to length of
 			// "matrixArray",it means that
 			// the element on position "alpfabetLetters[j]" is not exist
