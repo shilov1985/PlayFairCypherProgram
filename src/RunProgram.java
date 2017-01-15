@@ -151,7 +151,7 @@ public class RunProgram {
 								// And if these two letters are in same row are
 								// formed three stories,and in all of the time
 								// append the encrypted letters to
-								// "codeSentence"
+								// "encryptedSentence"
 								// variable.
 
 								/**********************************************
@@ -160,47 +160,99 @@ public class RunProgram {
 								 * ********************************************
 								 **/
 								if (tempBRows == playfairMatrix[0].length - 1) {
-									// Here takes the encrypted letter by the
-									// position of
-									// the first
-									// letter from the chunk,shifted with one
-									// position
-									// on right.
-									encryptedSentence
-											.append(playfairMatrix[matrixRows][matrixCols + 1]);
-									// Here takes the first letter of the row.
-									// This is the encrypted letter.
-									encryptedSentence
-											.append(playfairMatrix[matrixRows][0]);
 
+									/*
+									 * Here check if the second letter is in the
+									 * end of the play fair matrix.This is
+									 * special case
+									 */
+									if (matrixRows == playfairMatrix.length - 1) {
+
+										// Here takes the next letter in the row
+										encryptedSentence
+												.append(playfairMatrix[matrixRows][matrixCols + 1]);
+
+										// Here takes the first letter of the
+										// play fair matrix
+
+										encryptedSentence
+												.append(playfairMatrix[0][0]);
+									} else {
+										// Here takes the encrypted letter by
+										// the
+										// position of
+										// the first
+										// letter from the chunk,shifted with
+										// one
+										// position
+										// on right.
+										encryptedSentence
+												.append(playfairMatrix[matrixRows][matrixCols + 1]);
+
+										// Here takes the first letter of the
+										// next
+										// row.
+										encryptedSentence
+												.append(playfairMatrix[matrixRows + 1][0]);
+									}
 									/**********************************************
-									 * Second story:if the first letter from
-									 * the* chunk is in the end of the row
-									 * proceed* with code below.. *
+									 * Second story:if the first letter from the
+									 * chunk is in the end of the row proceed*
+									 * with code below.. *
 									 ********************************************** 
 									 **/
 								} else if (matrixCols == playfairMatrix[0].length - 1) {
-									// Here takes the first letter of the row.
-									// This is the encrypted letter.
-									encryptedSentence
-											.append(playfairMatrix[matrixRows][0]);
-									// Here takes the encrypted letter by the
-									// position of
-									// second
-									// letter from the chunk,shifted with one
-									// position
-									// on right.
-									encryptedSentence
-											.append(playfairMatrix[matrixRows][tempBRows + 1]);
 
-									/**********************************************
-									 * Third story:when have no letters from the
-									 * chunks equal to the letters in the end of
-									 * the matrix rows,proceed with the code
-									 * below.
-									 ********************************************** 
-									 **/
-								} else {
+									/*
+									 * Here check if the first letter is in the
+									 * end of the play fire matrix. This is
+									 * special case!
+									 */
+									if (matrixRows == playfairMatrix.length - 1) {
+
+										// Here takes the first letter of the
+										// play fair matrix.
+										encryptedSentence
+												.append(playfairMatrix[0][0]);
+
+										// Here takes the encrypted letter by
+										// the
+										// position of
+										// the second
+										// letter from the chunk,shifted with
+										// one
+										// position
+										// on right.
+
+										encryptedSentence
+												.append(playfairMatrix[matrixRows][tempBRows + 1]);
+
+									} else {
+
+										// Here takes the first letter of the
+										// next row.
+
+										encryptedSentence
+												.append(playfairMatrix[matrixRows + 1][0]);
+										// Here takes the encrypted letter by
+										// the
+										// position of
+										// second
+										// letter from the chunk,shifted with
+										// one
+										// position
+										// on right.
+										encryptedSentence
+												.append(playfairMatrix[matrixRows][tempBRows + 1]);
+									}
+								}
+								/**********************************************
+								 * Third story:when have no letters from the
+								 * chunks equal to the letters in the end of the
+								 * matrix rows,proceed with the code below.
+								 ********************************************** 
+								 **/
+								else {
 									// Here have no special situation,just
 									// takes
 									// the letters shifted with
@@ -275,7 +327,6 @@ public class RunProgram {
 		}
 		System.out.println("Here is your encrypted text.");
 		System.out.println(encryptedSentence);
-		System.out
-				.println("You can check the encrypted text:http://www.geocachingtoolbox.com/index.php?page=playfairCipher");
+
 	}
 }
