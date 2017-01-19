@@ -117,10 +117,10 @@ public class RunProgram {
 		char tempB;
 		StringBuilder encryptedSentence = new StringBuilder();
 
-		/**
+		/*******************************************************************************
 		 * The code below is the main logic in this program. Here we use the
 		 * diagrams from "sentenceArr" to encrypt a text.
-		 */
+		 *******************************************************************************/
 		for (int i = 0; i < sentenceArr.length; i++) {
 			// First takes the letters from diagrams array "sentenceArr".
 
@@ -205,7 +205,7 @@ public class RunProgram {
 
 									/*
 									 * Here check if the first letter is in the
-									 * end of the play fire matrix. This is
+									 * end of the play fair matrix. This is
 									 * special case!
 									 */
 									if (matrixRows == playfairMatrix.length - 1) {
@@ -245,19 +245,20 @@ public class RunProgram {
 										encryptedSentence
 												.append(playfairMatrix[matrixRows][tempBRows + 1]);
 									}
-								}
-								/**********************************************
-								 * Third story:when have no letters from the
-								 * chunks equal to the letters in the end of the
-								 * matrix rows,proceed with the code below.
-								 ********************************************** 
-								 **/
-								else {
+
+									/**********************************************
+									 * Third story:when have no letters from the
+									 * chunks equal to the letters in the end of
+									 * the matrix rows,proceed with the code
+									 * below.
+									 ********************************************** 
+									 **/
+								} else {
+
 									// Here have no special situation,just
 									// takes
 									// the letters shifted with
-									// one position on right.These are the
-									// encrypted letters.
+									// one position on right.
 									encryptedSentence
 											.append(playfairMatrix[matrixRows][matrixCols + 1]);
 									encryptedSentence
@@ -269,24 +270,79 @@ public class RunProgram {
 						// If the two letters in the chunk not forms
 						// rows ,maybe forms columns,and code below
 						// check is that true.
-						// Check if the diagrams forms column
+
 						for (int tempBRows = 0; tempBRows < playfairMatrix.length; tempBRows++) {
 
+							// Check if the diagrams forms column
+							// And if the two letters forms column are formed 3
+							// stories
 							if (tempB == playfairMatrix[tempBRows][matrixCols]) {
 
-								if (tempB == playfairMatrix.length - 1) {
-									encryptedSentence
-											.append(playfairMatrix[matrixRows + 1][matrixCols]);
-									encryptedSentence
-											.append(playfairMatrix[0][matrixCols]);
+								/**********************************************
+								 * First story:if the second letter is in the *
+								 * end of the column proceed with the code
+								 * below. *
+								 * ********************************************
+								 **/
 
+								if (tempBRows == playfairMatrix.length - 1) {
+
+									/*
+									 * Here check if the second letter is in the
+									 * end of the play fair matrix. This is
+									 * special case!
+									 */
+									if (matrixCols == playfairMatrix[0].length - 1) {
+
+										// Here takes next letter by the
+										// position
+										// of first letter shifted with one
+										// position below
+										encryptedSentence
+												.append(playfairMatrix[matrixRows + 1][matrixCols]);
+
+										// Here takes the first element in the
+										// matrix.
+										encryptedSentence
+												.append(playfairMatrix[0][0]);
+
+									} else {
+										encryptedSentence
+												.append(playfairMatrix[matrixRows + 1][matrixCols]);
+										encryptedSentence
+												.append(playfairMatrix[0][matrixCols + 1]);
+									}
+
+									/**********************************************
+									 * Second story:if the first letter from the
+									 * chunk is in the end of the row proceed*
+									 * with code below.. *
+									 ********************************************** 
+									 **/
 								} else if (matrixRows == playfairMatrix[0].length - 1) {
-									encryptedSentence
-											.append(playfairMatrix[0][matrixCols]);
-									encryptedSentence
-											.append(playfairMatrix[tempBRows + 1][matrixCols]);
+
+									// Here check if the first letter is in the
+									// end of matrix.This is special case!
+									if (matrixCols == playfairMatrix.length - 1) {
+
+										encryptedSentence
+												.append(playfairMatrix[0][0]);
+
+										encryptedSentence
+												.append(playfairMatrix[tempBRows + 1][matrixCols]);
+
+									} else {
+										encryptedSentence
+												.append(playfairMatrix[0][matrixCols + 1]);
+										encryptedSentence
+												.append(playfairMatrix[tempBRows + 1][matrixCols]);
+									}
 
 								} else {
+
+									// Here is no special cases
+									// Just takes the letters shifted with one
+									// position down.
 									encryptedSentence
 											.append(playfairMatrix[matrixRows + 1][matrixCols]);
 									encryptedSentence
@@ -295,7 +351,8 @@ public class RunProgram {
 								}
 							}
 						}
-						// check if diagrams forms square
+
+						// Check if diagrams forms square!
 						for (int squareRows = 0; squareRows < playfairMatrix.length; squareRows++) {
 							for (int squareCols = 0; squareCols < playfairMatrix[0].length; squareCols++) {
 
