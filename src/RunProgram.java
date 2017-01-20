@@ -1,13 +1,12 @@
 import java.util.Scanner;
 
 public class RunProgram {
-	// At this class we combine all methods and variables needed to make this
+	// At this class combine all methods and variables needed to make this
 	// program to works.Here is the main program encrypting logic.
 	static char[] keyArraySymbols;
 	static char[][] playfairMatrix;
 	static StringBuilder convertedKey;
 
-	//
 	public static void main(String[] args) {
 
 		playfairMatrix = new char[5][5];
@@ -45,11 +44,10 @@ public class RunProgram {
 						+ " the English alpfabet,without 'J'.");
 
 		String key = scan.nextLine().replaceAll("[^a-zA-Z]+", "");
-		;
-		// Here we remove all spaces and intervals in the cipher key,and convert
-		// it
-		// to
-		// upper case.
+		
+		
+		// Here remove all spaces and intervals in the cipher key,and convert
+		//  upper case.
 		keyArraySymbols = key.toUpperCase().replaceAll("\\s", "").trim()
 				.toCharArray();
 
@@ -63,7 +61,7 @@ public class RunProgram {
 			System.out.println("You not have entered key.\n");
 
 		}
-		// Here we implement "fixKeyForCoding" method to get
+		// Here implement "fixKeyForCoding" method to get
 		// the rest letters for "playfairMatrix".
 		StringBuilder restElement = RestLettersForMatrix
 				.getRestLettersForMatrix(convertedKey);
@@ -118,7 +116,7 @@ public class RunProgram {
 		StringBuilder encryptedSentence = new StringBuilder();
 
 		/*******************************************************************************
-		 * The code below is the main logic in this program. Here we use the
+		 * The code below is the main logic in this program. Here  use the
 		 * diagrams from "sentenceArr" to encrypt a text.
 		 *******************************************************************************/
 		for (int i = 0; i < sentenceArr.length; i++) {
@@ -135,7 +133,8 @@ public class RunProgram {
 					// In every case the position is founded
 					if (tempA == playfairMatrix[matrixRows][matrixCols]) {
 
-						// After have founded the position of first letter of
+						// After have founded the position of the first letter
+						// of
 						// the chunk must find the position of the second
 						// letter
 						// of the same chunk.
@@ -307,8 +306,21 @@ public class RunProgram {
 												.append(playfairMatrix[0][0]);
 
 									} else {
+
+										// Here takes the encrypted letter by
+										// the
+										// position of
+										// first
+										// letter from the chunk,shifted with
+										// one
+										// position
+										// below.
 										encryptedSentence
 												.append(playfairMatrix[matrixRows + 1][matrixCols]);
+
+										// Here takes the first letter of the
+										// next column.
+
 										encryptedSentence
 												.append(playfairMatrix[0][matrixCols + 1]);
 									}
@@ -325,24 +337,33 @@ public class RunProgram {
 									// end of matrix.This is special case!
 									if (matrixCols == playfairMatrix.length - 1) {
 
+										// Here is special case,and must takes
+										// the first letter in the matrix.
 										encryptedSentence
 												.append(playfairMatrix[0][0]);
 
+										// Takes the last letter of the matrix.
 										encryptedSentence
 												.append(playfairMatrix[tempBRows + 1][matrixCols]);
 
 									} else {
+
+										// Here takes the first letter of the
+										// next column.
 										encryptedSentence
 												.append(playfairMatrix[0][matrixCols + 1]);
+
+										// Here takes the last element of the
+										// column.
 										encryptedSentence
 												.append(playfairMatrix[tempBRows + 1][matrixCols]);
 									}
 
 								} else {
 
-									// Here is no special cases
+									// Here is no special cases.
 									// Just takes the letters shifted with one
-									// position down.
+									// position below.
 									encryptedSentence
 											.append(playfairMatrix[matrixRows + 1][matrixCols]);
 									encryptedSentence
