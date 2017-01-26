@@ -5,8 +5,7 @@ public class SentenseForCoding {
 		StringBuilder formattedString = new StringBuilder();
 
 		// Here remove all spaces and intervals in the sentence,and convert it
-		// to
-		// upper case and replace 'J' with 'I';
+		// to upper case and replace 'J' with 'I';
 		String trimmedSentence = sentence.toUpperCase().replaceAll("\\s", "")
 				.replaceAll("J", "I").trim();
 
@@ -24,16 +23,24 @@ public class SentenseForCoding {
 		for (int i = 1; i < formattedString.length(); i += 2) {
 
 			if (formattedString.charAt(i - 1) == formattedString.charAt(i)) {
-				formattedString.insert(i, "X");
+				if (formattedString.charAt(i) == 'X') {
+					formattedString.insert(i, "Q");
+				} else {
+					formattedString.insert(i, "X");
+				}
 			}
 
 		}
 		// The code below append an 'X' in the end of the
-		// "formattedString"variable,if the
-		// length of "formattedString" is not
-		// even number.
+		// "formattedString" variable,if the
+		// "formattedString" length is not even number.
 		if (formattedString.length() % 2 != 0) {
-			formattedString.append("X");
+			if (formattedString.charAt(formattedString.length()-1) == 'X') {
+				formattedString.append("Q");
+			} else {
+				formattedString.append("X");
+			}
+
 		}
 
 		return String.valueOf(formattedString);

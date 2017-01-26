@@ -33,8 +33,7 @@ public class RestLettersForMatrix {
 			// If the length of the "flag" is equal to length of
 			// "matrixArray",it means that
 			// the element on position "alpfabetLetters[j]" is not exist
-			// in
-			// the cipher key,and the code append this element
+			// in the cipher key,and the code append this element
 			// to"restLetters" variable;
 
 			if (flag == keyArrayLetters.length()) {

@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class RunProgram {
 	// At this class combine all methods and variables needed to make this
-	// program to works.Here is the main program encrypting logic.
+	// program to works.Here is the main program encrypt logic.
 	static char[] keyArraySymbols;
 	static char[][] playfairMatrix;
 	static StringBuilder convertedKey;
@@ -11,13 +11,14 @@ public class RunProgram {
 
 		playfairMatrix = new char[5][5];
 		Scanner scan = new Scanner(System.in);
+
 		System.out
 				.println("PlayFair cypher encrypt program by Miroslav Shilov.");
 		System.out
 				.println("https://github.com/shilov1985/PlayfairCypherProgram\n");
 
 		System.out
-				.println("Please input a text which you want to encrypt and press Enter...");
+				.println("Please input a text which you want to encrypt and press Enter!");
 
 		String sentenseForCoding = null;
 
@@ -25,41 +26,42 @@ public class RunProgram {
 			sentenseForCoding = scan.nextLine().replaceAll("[^a-zA-Z]+", "");
 			if (sentenseForCoding.length() == 0) {
 				System.out
-						.println("Invalid length!\nPlease input a text for encrypting and press Enter...");
+						.println("Invalid length!\nPlease input a text for encryption and press Enter!");
 			}
 		} while (sentenseForCoding.length() == 0);
 
 		// Here implement "SentenseForCoding" method to fix some text which
 		// this program encrypt.
-		String result = SentenseForCoding.convertSentense(sentenseForCoding);
+		String formattedSentense = SentenseForCoding.convertSentense(sentenseForCoding);
 
 		System.out
 				.println("Here is formatted variant of the text which you want to encrypt:"
-						+ result + "\n");
+						+ formattedSentense + "\n");
 
 		System.out
-				.println("Please input a key for encrypting of the text and press Enter...");
+				.println("Please input a key for encryption of the text and press Enter!");
 		System.out
-				.println("Note-if you not input key for encrypting,by default\nthe matrix will be filled with"
+				.println("If you not input key for encryption,by default\nthe matrix will be filled with"
 						+ " the English alpfabet,without 'J'.");
-
+        
 		String key = scan.nextLine().replaceAll("[^a-zA-Z]+", "");
-		
-		
-		// Here remove all spaces and intervals in the cipher key,and convert
-		//  upper case.
+
+		scan.close();
+
+		// Here remove all spaces and intervals in the cipher key,and convert it to upper case.
 		keyArraySymbols = key.toUpperCase().replaceAll("\\s", "").trim()
 				.toCharArray();
 
 		// Here implement "fixKeyForCoding" method to fix the cipher key.
 		convertedKey = CipherKey.fixKeyForCoding(keyArraySymbols);
 		System.out
-				.println("Here is the fixed variant of the key for encrypting:"
+				.println("Here is  fixed variant of the key for encryption:"
 						+ convertedKey + "\n");
 
 		if (convertedKey.length() == 0) {
-			System.out.println("You not have entered key.\n");
-
+			System.out
+					.println("You have not entered key "
+							+ "and the matrix is going\nto be filled with the English alphabet without 'J'.\n");
 		}
 		// Here implement "fixKeyForCoding" method to get
 		// the rest letters for "playfairMatrix".
@@ -67,8 +69,7 @@ public class RunProgram {
 				.getRestLettersForMatrix(convertedKey);
 
 		// The code below fill the "playfairMatrix" with the PlayFair-key
-		// needed for encrypting
-		// and the rest letters from the English alphabet.
+		// needed for encrypting and the rest letters from the English alphabet.
 		int counterKey = 0;
 		int counterRest = 0;
 
@@ -102,21 +103,23 @@ public class RunProgram {
 		// Here breaks "formattedString" into two-letter chunks
 		// in two dimensional array to be comfortable use diagrams
 
-		int countSentence = 0;
-		char[][] sentenceArr = new char[result.length() / 2][2];
+		int textToChunkCounter = 0;
+		char[][] sentenceArr = new char[formattedSentense.length() / 2][2];
 		for (int i = 0; i < sentenceArr.length; i++) {
 			for (int j = 0; j < 2; j++) {
-				sentenceArr[i][j] = result.charAt(countSentence);
-				countSentence++;
+				sentenceArr[i][j] = formattedSentense.charAt(textToChunkCounter);
+				textToChunkCounter++;
 			}
 		}
 
 		char tempA;
 		char tempB;
+		
+		//Declaration of variable for print the encrypted text. 
 		StringBuilder encryptedSentence = new StringBuilder();
 
 		/*******************************************************************************
-		 * The code below is the main logic in this program. Here  use the
+		 * The code below is the main logic in this program. Here use the
 		 * diagrams from "sentenceArr" to encrypt a text.
 		 *******************************************************************************/
 		for (int i = 0; i < sentenceArr.length; i++) {
@@ -133,17 +136,15 @@ public class RunProgram {
 					// In every case the position is founded
 					if (tempA == playfairMatrix[matrixRows][matrixCols]) {
 
-						// After have founded the position of the first letter
-						// of
+						// After we have found the position of the first letter of 
 						// the chunk must find the position of the second
-						// letter
-						// of the same chunk.
+						// letter of the same chunk.
 						// Start to search for position of the second letter.
 						for (int tempBRows = 0; tempBRows < playfairMatrix[0].length; tempBRows++) {
 
 							// Here check by variable(counter) "x" of the
-							// outermost for
-							// cycle ,if the second letter is at the same row
+							// outermost "for"
+							// cycle ,if the second letter is in the same row
 							// like the first letter."x"=index of row.
 							if (tempB == playfairMatrix[matrixRows][tempBRows]) {
 
@@ -178,19 +179,14 @@ public class RunProgram {
 												.append(playfairMatrix[0][0]);
 									} else {
 										// Here takes the encrypted letter by
-										// the
-										// position of
-										// the first
+										// the  position of the first
 										// letter from the chunk,shifted with
-										// one
-										// position
-										// on right.
+										// one position on right.
 										encryptedSentence
 												.append(playfairMatrix[matrixRows][matrixCols + 1]);
 
 										// Here takes the first letter of the
-										// next
-										// row.
+										// next row.
 										encryptedSentence
 												.append(playfairMatrix[matrixRows + 1][0]);
 									}
@@ -215,13 +211,9 @@ public class RunProgram {
 												.append(playfairMatrix[0][0]);
 
 										// Here takes the encrypted letter by
-										// the
-										// position of
-										// the second
+										// the position of the second
 										// letter from the chunk,shifted with
-										// one
-										// position
-										// on right.
+										// one position on right.
 
 										encryptedSentence
 												.append(playfairMatrix[matrixRows][tempBRows + 1]);
@@ -234,13 +226,9 @@ public class RunProgram {
 										encryptedSentence
 												.append(playfairMatrix[matrixRows + 1][0]);
 										// Here takes the encrypted letter by
-										// the
-										// position of
-										// second
+										// the position of second
 										// letter from the chunk,shifted with
-										// one
-										// position
-										// on right.
+										// one position on right.
 										encryptedSentence
 												.append(playfairMatrix[matrixRows][tempBRows + 1]);
 									}
@@ -255,9 +243,7 @@ public class RunProgram {
 								} else {
 
 									// Here have no special situation,just
-									// takes
-									// the letters shifted with
-									// one position on right.
+									// takes the letters shifted with one position on right.
 									encryptedSentence
 											.append(playfairMatrix[matrixRows][matrixCols + 1]);
 									encryptedSentence
@@ -272,7 +258,7 @@ public class RunProgram {
 
 						for (int tempBRows = 0; tempBRows < playfairMatrix.length; tempBRows++) {
 
-							// Check if the diagrams forms column
+							// Check if the diagrams forms column.
 							// And if the two letters forms column are formed 3
 							// stories
 							if (tempB == playfairMatrix[tempBRows][matrixCols]) {
@@ -296,7 +282,7 @@ public class RunProgram {
 										// Here takes next letter by the
 										// position
 										// of first letter shifted with one
-										// position below
+										// position below.
 										encryptedSentence
 												.append(playfairMatrix[matrixRows + 1][matrixCols]);
 
@@ -308,13 +294,9 @@ public class RunProgram {
 									} else {
 
 										// Here takes the encrypted letter by
-										// the
-										// position of
-										// first
-										// letter from the chunk,shifted with
-										// one
-										// position
-										// below.
+										// the position of the first
+										// letter from the chunk,shifted with one
+										// position below.
 										encryptedSentence
 												.append(playfairMatrix[matrixRows + 1][matrixCols]);
 
@@ -381,8 +363,7 @@ public class RunProgram {
 									// Here check,if the letters from
 									// "sentenceArr" are
 									// on different rows and columns,and start
-									// logic
-									// for encrypting of needed letters.
+									// logic for encrypting of needed letters.
 									if ((matrixRows != squareRows)
 											&& (squareCols != matrixCols)) {
 										encryptedSentence
