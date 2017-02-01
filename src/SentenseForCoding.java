@@ -10,7 +10,7 @@ public class SentenseForCoding {
 				.replaceAll("J", "I").trim();
 
 		// Convert "trimmedSentence" variable to variable of type StringBuilder
-		// and remove all 'J' letters'.
+		
 		for (int i = 0; i < trimmedSentence.length(); i++) {
 
 			formattedString.append(trimmedSentence.charAt(i));
